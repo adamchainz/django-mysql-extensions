@@ -139,6 +139,17 @@ class Sign(SingleArgFunc):
     function = "SIGN"
     output_field_class = IntegerField
 
+    def __init__(self, *args, **kwargs):
+        warnings.warn(
+            (
+                "This function is deprecated. Use "
+                + "django.db.models.functions.Sign instead."
+            ),
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
+
 
 # String Functions
 
@@ -230,10 +241,26 @@ class MD5(SingleArgFunc):
     function = "MD5"
     output_field_class = CharField
 
+    def __init__(self, *args, **kwargs):
+        warnings.warn(
+            "This function is deprecated. Use django.db.models.functions.MD5 instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
+
 
 class SHA1(SingleArgFunc):
     function = "SHA1"
     output_field_class = CharField
+
+    def __init__(self, *args, **kwargs):
+        warnings.warn(
+            "This function is deprecated. Use django.db.models.functions.SHA1 instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
 
 
 class SHA2(Func):
@@ -247,6 +274,14 @@ class SHA2(Func):
                     ",".join(str(x) for x in self.hash_lens)
                 )
             )
+        warnings.warn(
+            (
+                "This function is deprecated. Use "
+                + "django.db.models.functions.SHA{hash_len} instead."
+            ),
+            DeprecationWarning,
+            stacklevel=2,
+        )
         super().__init__(expression, Value(hash_len))
 
 
